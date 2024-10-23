@@ -469,28 +469,6 @@ public class PhotoGalleryPlugin: NSObject, FlutterPlugin {
     let resource = self.extractResourceFromAsset(asset: asset)
     let size = self.extractSizeFromResource(resource: resource)
     // let orientation = self.toOrientationValue(orientation: asset.value(forKey: "orientation") as? UIImage.Orientation)
-
-    // Assuming a default orientation value
-    let defaultOrientation: UIImage.Orientation = .up
-    
-    // Declare the orientation variable at the top level
-    var orientation: Int
-    
-    // Check if the asset responds to the "orientation" key
-    if asset.responds(to: Selector("orientation")) {
-        // Safe to call value(forKey:)
-        if let orientationValue = asset.value(forKey: "orientation") as? UIImage.Orientation {
-            // Use the retrieved orientation value
-            orientation = self.toOrientationValue(orientation: orientationValue)
-        } else {
-            // Handle the case where orientation is nil or not a valid type
-            orientation = self.toOrientationValue(orientation: defaultOrientation)
-        }
-    } else {
-        // The asset does not have an orientation key; use the default orientation
-        orientation = self.toOrientationValue(orientation: defaultOrientation)
-    }
-
     return [
       "id": asset.localIdentifier,
       "filename": filename,
@@ -500,7 +478,7 @@ public class PhotoGalleryPlugin: NSObject, FlutterPlugin {
       "height": asset.pixelHeight,
       "width": asset.pixelWidth,
       "size": size,
-      "orientation": orientation,
+      "orientation": 0,
       "duration": NSInteger(asset.duration * 1000),
       "creationDate": (asset.creationDate != nil) ? NSInteger(asset.creationDate!.timeIntervalSince1970 * 1000) : nil,
       "modifiedDate": (asset.modificationDate != nil) ? NSInteger(asset.modificationDate!.timeIntervalSince1970 * 1000) : nil
