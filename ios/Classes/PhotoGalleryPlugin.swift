@@ -474,7 +474,7 @@ public class PhotoGalleryPlugin: NSObject, FlutterPlugin {
     let defaultOrientation: UIImage.Orientation = .up
     
     // Declare the orientation variable at the top level
-    var orientation: UIImage.Orientation
+    var orientation: Int
     
     // Check if the asset responds to the "orientation" key
     if asset.responds(to: Selector("orientation")) {
